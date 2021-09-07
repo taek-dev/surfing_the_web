@@ -21,6 +21,16 @@ namespace surfgame
 			return new( Sound.FromScreen( song ) );
 		}
 
+		public void Mute()
+		{
+			Volume = 0f;
+		}
+
+		public void Unmute()
+		{
+			Volume = 100f;
+		}
+
 		private SurfTunes( Sound song )
 		{
 			this.song = song;

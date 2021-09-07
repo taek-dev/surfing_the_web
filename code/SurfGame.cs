@@ -44,11 +44,23 @@ namespace surfgame
 
 			if ( spawnpoint == null )
 			{
-				Log.Warning( $"Couldn't find spawnpoint for {pawn}!" );
-				return;
-			}
+				var backupSpawnpoint = Entity.All
+						.OfType<SpawnPoint>()               // get all SpawnPoint entities
+						.OrderBy( x => Guid.NewGuid() )     // order them by random
+						.FirstOrDefault();                  // take the first one
 
-			pawn.Transform = spawnpoint.Transform;
+				if ( backupSpawnpoint == null )
+				{
+					Log.Warning( $"Couldn't find spawnpoint for {pawn}!" );
+					return;
+				}
+
+				pawn.Transform = backupSpawnpoint.Transform;
+			}
+			else
+			{
+				pawn.Transform = spawnpoint.Transform;
+			}
 		}
 	}
 
